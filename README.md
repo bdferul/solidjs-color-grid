@@ -7,8 +7,7 @@ A simple demonstration of how to update the state of a 2d array displayed with `
 ```jsx
 const [grid, updateGrid] =
   createSignal([...Array(10)].map(_ =>
-    [...Array(10)].map(_ =>
-      Math.random() < .5)))
+    [...Array(10)].map(_ => false)))
 
 return <table><tbody>
   <For each={grid()}>{(row, y) => <tr>
@@ -31,8 +30,7 @@ return <table><tbody>
 ```jsx
 const [grid, updateGrid] =
   createStore([...Array(10)].map(_ =>
-    [...Array(10)].map(_ =>
-      Math.random() < .5)))
+    [...Array(10)].map(_ => false)))
 
 return <table><tbody>
   <For each={grid}>{(row, y) => <tr>
