@@ -1,34 +1,50 @@
-## Usage
+## What is this?
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+A simple demonstration of how to update the state of a 2d array displayed with `<For>` tags. 
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## With Signals
 
-```bash
-$ npm install # or pnpm install or yarn install
+```jsx
+const start = new Array(10).fill([]).map(_ => new Array(10).fill(false).map(_ => Math.random() * 10 < 5))
+const [grid, updateGrid] = createSignal(start)
+
+const flip = (x: number, y: number) => {
+const val = [...grid()]
+val[y][x] = !val[y][x]
+updateGrid(val)
+}
+
+return <table>
+<tbody>
+    <For each={grid()}>{(row, y) => (
+    <tr>
+        <For each={grid()[y()]}>{(cell, x) => (
+        <td
+            class={`${cell ? "bg-green-500" : 'bg-red-500'} w-8 h-8`}
+            onClick={_ => flip(x(), y())} />
+        )}</For>
+    </tr>
+    )}</For>
+</tbody>
+</table>
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## With Stores
 
-## Available Scripts
+```jsx
+const [grid, updateGrid] = createStore(new Array(10).fill([]).map(_ => new Array(10).fill(false).map(_ => Math.random() * 10 < 5)))
 
-In the project directory, you can run:
-
-### `npm run dev` or `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+return <table>
+  <tbody>
+    <For each={grid}>{(row, y) => (
+      <tr>
+        <For each={row}>{(cell, x) => (
+          <td
+            style={{ 'background-color': cell ? 'green' : 'red', width: '20px', height: '20px' }}
+            onClick={_ => updateGrid(y(), x(), p => !p)}></td>
+        )}</For>
+      </tr>
+    )}</For>
+  </tbody>
+</table>
+```
