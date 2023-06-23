@@ -23,8 +23,7 @@ return <table><tbody>
     }</For>
   </tr>
   }</For>
-</tbody>
-</table>
+</tbody></table>
 ```
 
 ## With Stores
@@ -44,6 +43,5 @@ return <table><tbody>
     }</For>
   </tr>
   }</For>
-</tbody>
-</table>
+</tbody></table>
 ```
