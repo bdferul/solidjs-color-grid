@@ -18,8 +18,7 @@ const App: Component = () => {
       }</For>
     </tr>
     }</For>
-  </tbody>
-  </table>
+  </tbody></table>
 };
 
 import { createStore } from 'solid-js/store';
@@ -38,8 +37,7 @@ export const WithStore: Component = () => {
       }</For>
     </tr>
     }</For>
-  </tbody>
-  </table>
+  </tbody></table>
 }
 
 export default App;
